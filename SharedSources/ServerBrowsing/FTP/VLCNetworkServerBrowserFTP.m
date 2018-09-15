@@ -51,16 +51,18 @@
 - (instancetype)initWithLogin:(VLCNetworkServerLoginInformation *)login
 {
     return [self initWithFTPServer:login.address
+                              port:login.port
                           userName:login.username
                        andPassword:login.password
                             atPath:@"/"];
 }
 
-- (instancetype)initWithFTPServer:(NSString *)serverAddress userName:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path
+- (instancetype)initWithFTPServer:(NSString *)serverAddress userName:(NSInt) port:(NSString *)username andPassword:(NSString *)password atPath:(NSString *)path
 {
     NSURLComponents *components = [[NSURLComponents alloc] init];
     components.scheme = @"ftp";
     components.host = serverAddress;
+    components.port = port;
     components.user = username.length ? username : @"anonymous";
     components.password = password.length ? password : nil;
     components.path = path;
